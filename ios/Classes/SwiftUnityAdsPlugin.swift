@@ -6,8 +6,9 @@ public class SwiftUnityAdsPlugin: NSObject, FlutterPlugin {
     static var viewController : UIViewController =  UIViewController();
     
     public static func register(with registrar: FlutterPluginRegistrar) {
-        viewController =
-        (UIApplication.shared.delegate?.window??.rootViewController)!;
+        if let rootViewController = UIApplication.shared.keyWindow?.rootViewController as? UIViewController {
+            viewController = rootViewController
+        }
         let messenger = registrar.messenger()
         
         let placementChannelManager = PlacementChannelManager(binaryMessenger: messenger)
